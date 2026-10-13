@@ -5,22 +5,23 @@ import urllib.parse
 import requests
 from datetime import datetime
 from selenium import webdriver
-# from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-# from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
 
 # 1. 모바일 최적화를 위한 페이지 기본 설정 (가운데 정렬)
 st.set_page_config(page_title="도서관 좌석 조회", page_icon="📚", layout="centered")
 
 def setup_browser():
     chrome_options = Options()
-    chrome_options.add_argument("--headless=new") # 백그라운드 실행
+    chrome_options.add_argument("--headless") # 백그라운드 실행
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    return webdriver.Chrome(options=chrome_options)
+    service = Service(ChromeDriverManager().install())
+    return webdriver.Chrome(service=service, options=chrome_options)
 
 def auto_login_and_fetch(seat_type_code):
     driver = setup_browser()
