@@ -1,6 +1,4 @@
 streamlit
 selenium
-time
-json
-urllib.parse
+webdriver-manager
 requests
